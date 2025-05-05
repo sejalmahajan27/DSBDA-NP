@@ -1,0 +1,83 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("data3.csv")
+df
+
+mean_age = df['Age'].mean()
+print("Mean age:", mean_age)
+
+df.mean(numeric_only=True)
+
+df.loc[:,'Age'].mean(numeric_only=True)
+
+df.mean(axis=1,numeric_only=True)[0:4]
+
+df.median(numeric_only=True)
+
+df.loc[:,'Age'].median(numeric_only=True)
+
+df.median(axis=1,numeric_only=True)[0:4]
+
+df.mode()
+
+df.loc[:,'Age'].mode()
+
+df.min()
+
+df.max()
+
+df.loc[:,'Age'].max(skipna = False)
+
+df.std(numeric_only=True)
+
+df.loc[:,'Age'].std()
+
+df.std(axis=1,numeric_only=True)[0:4]
+
+df.groupby(['Genre'])['Age'].mean(numeric_only=True)
+
+df_u=df.rename(columns= {'Annual Income':'Income'},inplace=False)
+df_u.groupby(['Genre']).Income.mean()
+
+
+from sklearn import preprocessing
+enc = preprocessing.OneHotEncoder()
+enc_df = pd.DataFrame(enc.fit_transform(df[['Genre']]).toarray())
+enc_df
+
+
+df_encode =df_u.join(enc_df)
+df_encode
+
+
+iris = pd.read_csv("data3.csv")
+iris
+
+irisSet = (iris['Age'] == 'Iris-setosa')
+
+
+print('Iris-setosa')
+print(iris[irisSet].describe())
+
+
+irisVer = (iris['Age']== 'Iris-versicolor')
+
+
+print('Iris-versicolor')
+print(iris[irisVer].describe())
+
+
+irisVir = (iris['Age']== 'Iris-virginica')
+
+
+print('Iris-virginica')
+print(iris[irisVir].describe())
+
+
+
+
+
+
+
+
