@@ -1,0 +1,94 @@
+import pandas as pd
+import numpy as np
+df = pd.read_csv("data1.csv")
+df
+
+df.dtypes
+
+df.info
+
+df.describe()
+
+df["Sepal Length"].mean()
+
+df['Sepal Length']
+
+df.isnull().sum()
+
+df.shape
+
+df.size
+
+df.index
+
+df.head(5)
+
+df.tail
+
+df.tail(10)
+
+df.columns
+
+df.sort_index(axis=1,ascending=True)
+
+df.iloc[5]
+
+df[0:3]
+
+df.iloc[:, 1]
+
+df.iloc[:,:]
+
+df.iloc[:8,:2]
+
+df.iloc[:,3]
+
+df.iloc[3:5,0:2]
+
+df.iloc[1,1]
+
+df['Sepal Length'].iloc[5]
+
+df['Sepal Width'].iloc[2]
+
+cols_2_4=df.columns[2:4]
+df[cols_2_4]
+
+df[df.columns[2:4]].iloc[5:10]
+
+from sklearn import preprocessing
+
+df.head(10)
+
+min_max_scaler = preprocessing.MinMaxScaler()
+
+x=df.iloc[:,:4]
+
+x_scaled = min_max_scaler.fit_transform(x)
+x_scaled
+#x-xI/X2-xI
+#technique used to scale data, especially when features (variables) have different ranges or units.
+#It transforms the data into a range, typically between 0 and 1, by applying the following formula:
+
+
+min_value = df['Sepal Length'].min()
+print("Minimum value:",min_value)
+
+max_value = df['Sepal Length'].max()
+print("Minimum value:",max_value)
+
+df_normalized = pd.DataFrame(x_scaled)
+df_normalized
+
+df['Species'].unique()
+
+label_encoder = preprocessing.LabelEncoder()
+
+df['Species'] = label_encoder.fit_transform(df['Species'])
+
+
+df['Species'].unique()
+
+
+
+
