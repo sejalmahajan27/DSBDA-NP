@@ -1,0 +1,69 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
+
+
+df=pd.read_csv('data5.csv')
+df
+
+df1=df.drop("Genre", axis=1)
+df1
+
+y = df1.iloc[:,-1].values #Last column (target variable for prediction).
+X = df1.iloc[:,:-1].values #All columns except the last one (features).
+
+y_pred = LR.predict(X_test)
+#This line uses the trained logistic Regression model to predict outputs for the test inputs x_test
+#predict() uses those weights to make predictions on new data.
+tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel() # matrix 
+
+
+
+print("True Negatives: ",tn)
+print("False Positives: ",fp)
+print("False Negatives: ",fn)
+print("True Positives: ",tp)
+#TN: Model predicted No, and actual was No.
+#FP: Model predicted Yes, but actual was No.
+#FN: Model predicted No, but actual was Yes.
+#TP: Model predicted Yes, and actual was Yes.
+
+
+
+accuracy = (tn + tp) * 100 / (tp + tn + fp + fn)
+precision = tp / (tp + fp)
+recall = tp / (tp + fn)
+f1_score = (2 * precision * recall) / (precision + recall)
+specificity = tn / (tn + fp)
+
+print(f"Accuracy: {accuracy:.2f}%")
+print(f"Precision: {precision:.2f}")
+print(f"Recall: {recall:.2f}")
+print(f"F1 Score: {f1_score:.2f}")
+print(f"Specificity: {specificity:.2f}")
+
+
+
+
+print("Enter values for the following features:")
+
+input_features = []
+for i in range(X_train.shape[1]):
+    val = float(input(f"Feature {i+1}: "))
+    input_features.append(val)
+
+
+input_array = np.array(input_features).reshape(1, -1)
+
+
+
+
+
+
+prediction = LR.predict(input_array)[0]
+print(f"Predicted Output: {prediction}")
+
+
+
