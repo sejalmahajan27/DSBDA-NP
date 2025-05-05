@@ -1,0 +1,111 @@
+import numpy as np
+import pandas as pd
+
+dataset = pd.read_csv('data6.csv')
+dataset
+
+X = dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+
+from sklearn.naive_bayes import GaussianNB
+classifier = GaussianNB()
+classifier.fit(X_train, y_train)
+
+
+y_pred = classifier.predict(X_test)
+
+
+from sklearn.metrics import precision_score, accuracy_score, recall_score, confusion_matrix
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average='micro')
+recall = recall_score(y_test, y_pred, average='micro')
+cm = confusion_matrix(y_test, y_pred)
+
+
+
+accuracy = (tn + tp) * 100 / (tp + tn + fp + fn)
+precision = tp / (tp + fp)
+recall = tp / (tp + fn)
+f1_score = (2 * precision * recall) / (precision + recall)
+specificity = tn / (tn + fp)
+
+
+
+
+print("Confusion Matrix:")
+print(cm)
+print(f"Accuracy: {accuracy}")
+print(f"Precision: {precision}")
+print(f"Recall: {recall}")
+
+
+
+
+age = float(input("Enter age: "))
+salary = float(input("Enter salary: "))
+
+
+
+input_data = [[age, salary]]  
+input_data
+
+
+print(dataset.columns)
+
+
+class_0_count = (dataset['Purchased'][:400] == 0).sum()  # Count Class 0
+class_1_count = (dataset['Purchased'][:400] == 1).sum()  # Count Class 1
+
+print(f"Class 0 count in first 400 rows: {class_0_count}")
+print(f"Class 1 count in first 400 rows: {class_1_count}")
+
+
+
+
+
+
+# Filter Class 0
+class_0_data = dataset[dataset['Purchased'] == 0]
+
+# Calculate the mean for Class 0
+class_0_age_mean = class_0_data['Age'].mean()
+class_0_salary_mean = class_0_data['EstimatedSalary'].mean()
+
+print(f"Class 0: Age Mean = {class_0_age_mean}, Salary Mean = {class_0_salary_mean}")
+
+# Filter Class 1
+class_1_data = dataset[dataset['Purchased'] == 1]
+
+# Calculate the mean for Class 1
+class_1_age_mean = class_1_data['Age'].mean()
+class_1_salary_mean = class_1_data['EstimatedSalary'].mean()
+
+print(f"Class 1: Age Mean = {class_1_age_mean}, Salary Mean = {class_1_salary_mean}")
+
+
+
+
+
+prediction = classifier.predict(input_data)
+#Use to trained classifier to predict the output (label) for the given input_data.
+
+
+
+print(f"The predicted class for age {age} and salary {salary} is: {prediction[0]}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
