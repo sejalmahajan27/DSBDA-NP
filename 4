@@ -1,0 +1,84 @@
+import numpy as np
+import pandas as pd 
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+#function to split data into training and testing sets for machine learning.
+from sklearn.metrics import mean_squared_error, r2_score
+#Measures how far predictions are from actual values.
+
+
+
+data = pd.read_csv('data4.csv')
+X = data.iloc[:, 1].values.reshape(-1, 1)  # Reshape 1D to 2D . 1st col
+y = data.iloc[:, -1].values #2nd col
+
+
+
+data = pd.read_csv('data4.csv')
+
+
+print(data)
+
+mean_price = data['price'].mean()
+print("Mean Price: ",mean_price)
+
+
+area_price = data['area'].mean()
+print(f"area Price: {area_price}")
+
+
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
+
+#This line splits the data into training and test sets. 80% is used for training and 20% for testing, and random_state=2 ensures the same split every time.
+
+
+
+model = LinearRegression()
+model.fit(x_train, y_train)
+#LinearRegression() creates the model, and 
+#.fit() trains it using the training data to learn the pattern between input and output.
+
+
+y_pred = model.predict(x_test)
+#This line uses the trained Linear Regression model to predict outputs for the test inputs x_test
+#y_pred, contains the predicted values
+
+
+
+mse = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+r2 = r2_score(y_test, y_pred)
+#MSE shows average squared error,
+#RMSE is the error in actual units,
+#R² shows how well the model fits the data (closer to 1 is better).
+
+
+
+
+print(f'Intercept: {model.intercept_}') #y=mx+b
+print(f'Coefficient: {model.coef_[0]}') #Prints the coefficient (slope m) of the line.
+print(f'Mean Squared Error: {mse}')
+print(f'Root Mean Squared Error (RMSE): {rmse}')
+print(f'R-Squared Score (R²):{r2}')
+
+
+
+user_price = float(input("Enter the house price : "))
+predicted_area = (model.intercept_ + model.coef_[0] * user_price)
+print(f'Predicted area : {predicted_area}')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
